@@ -1,0 +1,130 @@
+html {
+    width: 1024px;
+    margin: 0 auto;
+}
+h1 a{
+    color: #ccc;
+    text-shadow: 1px 1px 1px #000;
+    text-decoration: none;
+}
+h1 a:hover {
+    text-shadow: none;
+    position: relative;
+    left: 1px;
+    top: 1px;
+    color: #333;
+}
+
+nav li {
+    display: inline-block;
+    width: 200px;
+    border-bottom: 4px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+li a:hover {
+    background-color: #33cc33;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+.story {
+    padding: 4px;
+}
+.story:first-letter {
+    font-size: 2em;
+}
+
+.rule {
+    border: 1px solid #cccccc;
+    padding: 4px;
+    padding-left: 3em;
+    list-style-type: cjk-ideographic;
+}
+.rule li {
+    margin-top: 0.5em;
+}
+#problems ul {
+    column-count: 3;
+    -moz-column-count: 3;
+}
+#problems ul li {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0.1em 0.5em;
+
+}
+
+table {
+    border: 1px solid #ccc;
+    padding: 0;
+    border-collapse: collapse;
+}
+th {
+    padding: 0 5px;
+}
+tr:first-child {
+    background-color:  #ccccee;
+    border-bottom: 2px solid #ccccee;
+}
+tr:nth-child(odd) {
+    background-color: #efefff;
+}
+.scoreboard tr:nth-child(2),.scores tr:nth-child(2) {
+    background-color: #faffac;
+}
+
+#loader,
+#loader:after {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+}
+#loader {
+    margin: 60px auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(0, 255, 0, 0.7);
+    border-right: 1.1em solid rgba(0, 255, 0, 0.7);
+    border-bottom: 1.1em solid rgba(0, 255, 0, 0.7);
+    border-left: 1.1em solid #ffffff;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
