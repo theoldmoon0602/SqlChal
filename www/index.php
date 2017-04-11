@@ -70,7 +70,7 @@ else {
                 <li><a href="./#problems">Problems</a></li>
 				<li><a href="?scoreboard">Scoreboard</a></li>
 				<?php if (isset($_SESSION['id'])) { ?>
-				<li><a href="?user"><?php o($_SESSION['username'] . "/rank:" . getUserRank($_SESSION['username'])); ?></a></li>
+				<li><a href="?user"><?php o($_SESSION['username'] . "/rank:" . getUserRank($_SESSION['id'])); ?></a></li>
 				<?php } else { ?>
 				<li><a href="?login">Login/Register</a></li>
 				<?php } ?>

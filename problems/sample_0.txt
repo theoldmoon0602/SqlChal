@@ -1,1 +1,0 @@
-screen_name from users order by screen_name limit 5;

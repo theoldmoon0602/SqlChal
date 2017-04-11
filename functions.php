@@ -66,6 +66,14 @@ function register($params) {
 	return 'Added new user. please log in';
 }
 
+function isUserSolved($user_id, $problem_id) {
+    $pdo = db();
+    $stmt = $pdo->prepare('select count(*) from submissions where user_id=? and problem_id=? and accepted="AC"');
+    $stmt->execute([$user_id, $problem_id]);
+    $stmt->setFetchMode(PDO::FETCH_NUM);
+    return $stmt->fetch()[0] > 0;
+}
+
 /**
  * 問題の総数を返す
  * @return int
@@ -77,6 +85,83 @@ function getProblemCount() {
     return (int)$stmt->fetchColumn();
 }
 
+class Problem {
+    public $id;
+    public $text;
+    public $name;
+    public $point;
+    public $answer_query;
+}
+
+/**
+ * @param $id
+ * @return Problem
+ */
+function getProblem($id) {
+    $pdo = db();
+    $stmt = $pdo->query("select * from problems where id=?;");
+    $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Problem");
+    $stmt->execute([$id]);
+    return $stmt->fetch();
+}
+/**
+ * すべての問題を取得する
+ * @return Problem[]
+ */
+function getProblems() {
+    $pdo = db();
+    $stmt = $pdo->query("select * from problems;");
+    $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "Problem");
+    $stmt->execute();
+    $problems = $stmt->fetchAll();
+    return $problems;
+}
+class UserResult {
+    public $username;
+    public $results;
+    public $score;
+}
+
+/**
+ * @return UserResult[]
+ */
+function getScoreBoard() {
+    $problemCount = getProblemCount();
+    $pdo = db();
+    $stmt = $pdo->prepare('select username, solved, score from users order by score desc, last_submission_time asc');
+    $stmt->execute();
+    $userResults = [];
+    while ($row = $stmt->fetch()) {
+        $solveds = explode(',', $row["solved"]);
+        $results = [];
+        for ($i = 1; $i <= $problemCount; $i++) {
+            $results[] = in_array($i, $solveds);
+        }
+        $userResult = new UserResult();
+        $userResult->username = $row['username'];
+        $userResult->results = $results;
+        $userResult->score = $row['score'];
+
+        $userResults[]=$userResult;
+    }
+    return $userResults;
+}
+
+
+function getUserRank($id) {
+    $pdo = db();
+    $stmt = $pdo->prepare('select id from users order by score desc, last_submission_time asc');
+    $stmt->execute();
+    $i = 1;
+    while ($row = $stmt->fetch()) {
+        if ($row['id'] == $id) {
+            break;
+        }
+        $i++;
+    }
+    return $i;
+}
+
 /**
  * ユーザ数をカウントする
  * @return int
@@ -86,97 +171,6 @@ function getUserCount() {
     $stmt = $pdo->query("select count() from users");
     $stmt->setFetchMode(PDO::FETCH_NUM);
     return (int)$stmt->fetchColumn();
-}
-
-class RankingSubmission {
-    public function __construct($author_name, $execution_time, $point)
-    {
-        $this->author_name =$author_name;
-        $this->execution_time = $execution_time;
-        $this->point = $point;
-    }
-}
-/**
- * ある問題におけるランキングを求める
- * @param int $problem_id
- * @return RankingSubmission[]
- */
-function getRankingAbout($problem_id) {
-    $pdo = db();
-    /**
-     * @var PDOStatement $stmt
-     *
-     * problem_id で submittions を絞り、 execution_time, created_at が小さい順に並べたあと、 user_id からユーザ情報を取得する
-     */
-    $stmt = $pdo->prepare("select users.username as author_name, execution_time ".
-        "from submissions inner join users on users.id = submissions.user_id ".
-        "where submissions.problem_id=? and submissions.accepted='AC' order by execution_time, created_at;");
-    $stmt->execute([$problem_id]);
-    $result = [];
-    $userCount = getUserCount();
-    $i = 1;
-    while ($row = $stmt->fetch()) {
-        $result[] = new RankingSubmission($row["author_name"], $row["execution_time"],$userCount-$i+1);
-        $i++;
-    }
-    return $result;
-}
-
-
-class ScoreBoardUser {
-    public function __construct($username, $point)
-    {
-        $this->username = $username;
-        $this->point = $point;
-    }
-}
-/**
- * 順位表を求める
- * @return ScoreBoardUser[]
- */
-function getScoreBoard() {
-    // usersにユーザごとの総得点を集計する
-    $users = [];
-    for ($problem_id = 0; $problem_id < getProblemCount(); $problem_id++) {
-        foreach(getRankingAbout($problem_id) as $rank => $v) {
-            if (! isset($users[$v->author_name])) {
-                $users[$v->author_name] = 0;
-            }
-            $users[$v->author_name] += $v->point;
-        }
-    }
-
-    // resultはキーなしの配列で、要素にusernameとpointを持ってる
-    $result = [];
-    foreach ($users as $username => $point) {
-        $result[]=new ScoreBoardUser($username, $point);
-    }
-
-    // point をキーとしてソートする
-    usort($result, function($a, $b) {
-        $a = $a->point;
-        $b = $b->point;
-        if ($a == $b) {
-            return 0;
-        }
-        return ($a < $b) ? 1 : -1;
-    });
-
-    return $result;
-}
-
-/**
- * ユーザの順位を求める
- * @param string $username
- */
-function getUserRank($username) {
-    $scoreBoard = getScoreBoard();
-    foreach ($scoreBoard as $rank => $scoreBoardUser) {
-        if ($scoreBoardUser->username == $username) {
-            return $rank + 1;
-        }
-    }
-    return 0;
 }
 
 class UserSubmission {
@@ -200,6 +194,7 @@ function getUserSubmissions($user_id) {
     $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, "UserSubmission");
     return $stmt->fetchAll();
 }
+
 
 /**
  * @param PDOStatement $rows
@@ -239,7 +234,7 @@ function format_to_table($rows, $limit = -1) {
  * @return PDO
  */
 function target_db() {
-    $pdo = new PDO("pgsql: dbname=root host=localhost", "user", "user");
+    $pdo = new PDO("pgsql: dbname=sqlchal host=localhost", "challenger", "challenger");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 }
@@ -306,4 +301,17 @@ function insertSubmission($user_id, $problem_id, $query, $accepted, $execution_t
     $pdo = db();
     $stmt = $pdo->prepare("insert into submissions(user_id, problem_id, query, accepted, execution_time, created_at) values (?,?,?,?,?,?)");
     $stmt->execute([$user_id, $problem_id, $query, $accepted, $execution_time, time()]);
+
+    if ($accepted =='AC' && !isUserSolved($user_id, $problem_id)) {
+        $stmt = $pdo->prepare("update users set ".
+        "score=(select score from users where id=:user_id)+(select point from problems where id=:problem_id),".
+        "solved=(select solved from users where id=:user_id)||','||:problem_id,".
+        "last_submission_time=:time ".
+        "where id=:user_id;");
+        $stmt->execute([
+            'user_id'=>$user_id,
+            'problem_id'=>$problem_id,
+            'time'=>time(),
+        ]);
+    }
 }

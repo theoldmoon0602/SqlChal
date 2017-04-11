@@ -25,17 +25,16 @@ if (! csrfcheck($_POST["csrf_token"])) {
     exit;
 }
 
+
 try {
     $a = execute_query($_POST["query"]);
-    $c = execute_query(load_answer_query($_POST["id"]));
+    $c = execute_query(getProblem($_POST["id"])->answer_query);
 
     $ac = is_same_result($a['rows'], $c['rows']);
 
     $result = execute_query($_POST["query"]);
     $html = format_to_table($result['rows'], $_POST["print_limit"]);
-
-    insertSubmission($_SESSION["id"], $_POST["id"], $_POST["query"], ($ac)?'AC':'WA', $result["time"]);
-
+    insertSubmission($_SESSION["id"], $_POST["id"], $_POST["query"], ($ac) ? 'AC' : 'WA', $result["time"]);
     echo json_encode([
         'result' => $html,
         'accepted' => $ac,

@@ -25,10 +25,8 @@
 
     <ul class="rule">
         <li>Joken SQL Challenge では いくつかの問題が出題されます。各問題の要件を満たすようなSELECTクエリを提出することでACとなり、点数を得られます。</li>
-        <li>各問題について、正しい出力を得られた提出のなかで、実行速度が速いものを上位をとして順位が与えられます。ただし、実行時間が同じの場合にはより早く提出されたものを上位とします</li>
-        <li>順位によって各ユーザに点数が与えられます。コンテストへの参加人数をn人として、r位の提出を行ったユーザには n-r+1 点が与えられます。</li>
-        <li>同じ問題に複数回提出し、ACした場合には、より新しい提出が採用されます</li>
-        <li>各問題でユーザに与えられた点数を合計した点数により、ユーザごとの順位が決定されます。コンテスト終了時にもっとも順位の高いユーザが優勝となります</li>
+        <li>各問題には配点が設定されており、問題にACすることで問題に設定された文の点数を得ることができます（正解した状態をAC、そうでない状態をWAと呼ぶ）</li>
+        <li>スコアが高いほうが順位が高く、より早く提出したほうが順位が高くなります。</li>
     </ul>
 
 
@@ -37,8 +35,8 @@
     <div id="problems">
         <h3>Problems</h3>
         <ul>
-            <?php for($i = 0; $i < getProblemCount(); $i++): ?>
-                <li><a href="?problem=<?php o($i);?>">Problem <?php o($i); ?></a></li>
-            <?php endfor; ?>
+            <?php foreach (getProblems() as $i => $problem) { ?>
+                    <li><a href="?problem=<?php o($i+1);?>" <?php if (isUserSolved($_SESSION["id"], $problem->id)) {echo('class="AC-button"'); }?> ><?php o($problem->name); ?> [<?php o($problem->point); ?> pts]</a></li>
+            <?php } ?>
         </ul>
     </div>

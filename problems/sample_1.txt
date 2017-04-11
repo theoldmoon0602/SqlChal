@@ -1,1 +1,0 @@
-count(*) from users;

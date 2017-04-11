@@ -128,3 +128,12 @@ tr:nth-child(odd) {
         transform: rotate(360deg);
     }
 }
+.ac,.AC {
+    color: green;
+}
+.AC-button {
+    background-color: green;
+}
+.wa,.WA {
+    color: red;
+}

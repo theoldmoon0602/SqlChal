@@ -10,9 +10,9 @@
 	<?php foreach ($submissions as $i => $s) { ?>
 	<tr>
 		<th><?php o($i+1); ?></th>
-		<td>Problem <?php o($s->problem_id); ?></td>
+        <td><a href="?problem=<?php echo $s->problem_id; ?>"><?php o($s->problem_id); ?> </a></td>
         <td><?php o($s->query); ?></td>
-        <td><?php o($s->accepted); ?></td>
+        <td class="<?php o($s->accepted); ?>"><?php o($s->accepted); ?></td>
         <td><?php o($s->execution_time); ?></td>
         <td><?php o(date('Y-m-d H:i:s', $s->created_at)); ?></td>
 	</tr>
