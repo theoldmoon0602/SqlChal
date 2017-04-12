@@ -12,6 +12,6 @@ tweets テーブルの user_id と結びつけることで、タイムライン�
 kyumina 「SNSを作るなら必須のクエリじゃん :pingu-hi:」
 ',
     'name' => 'Kyumina くんとタイムライン',
-    'point' => 300,
+    'point' => 250,
     'answer_query' => 'select text from tweets where user_id in (select followee_id from follow_relations where follower_id=1) order by created_at;',
 ];

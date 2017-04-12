@@ -10,6 +10,6 @@ return [
 
 kyumina「これはなかなか難しい……。group by 句 は必須だぞい！」',
     'name' => 'Kyumina くんとツイ廃',
-    'point' => 200,
+    'point' => 250,
     'answer_query' => 'count(id) from tweets group by user_id order by count(id) desc limit 20;',
 ];

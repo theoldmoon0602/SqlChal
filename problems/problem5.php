@@ -11,6 +11,6 @@ follower_id はそのユーザをフォローしているユーザのidを表し
 
 あなた「group by 句とサブクエリ、 inner join をうまく使えば……できる気がする……」',
     'name' => 'Kyumina くんと人気者',
-    'point' => 330,
+    'point' => 350,
     'answer_query' => 'cnt, screen_name from users inner join (select count(*) as cnt, followee_id from follow_relations group by followee_id order by count(*) desc limit 50) as hoge on hoge.followee_id = users.id order by cnt;',
 ];

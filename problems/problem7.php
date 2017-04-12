@@ -10,6 +10,6 @@ kyumina 「union select はCTFでも大活躍って師匠が言ってました ^
 あなた「union するときは order by の使い方に注意しないといけないな」
 ',
     'name' => 'Kyumina くんとヘビーユーザ',
-    'point' => 250,
+    'point' => 200,
     'answer_query' => '* from (select user_id from tweets group by user_id order by count(*) desc limit 1 )as hoge union select user_id from tweets where id=(select favoree_tweet_id from favorites group by favoree_tweet_id order by count(*) desc limit 1) union select * from (select followee_id from follow_relations group by followee_id order by count(*) desc limit 1) as piyo order by 1;',
 ];

@@ -10,6 +10,6 @@ return [
 ふるつき 「ぼくの解法だと、 in 句とサブクエリを使ったんだよなぁ」
 ',
     'name' => 'Kyumina くんとなかよしMAP',
-    'point' => 250,
+    'point' => 300,
     'answer_query' => ' follower_id from follow_relations where followee_id = 24 and follower_id in (select followee_id from follow_relations where follower_id = 24) order by follower_id;',
 ];

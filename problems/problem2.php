@@ -7,8 +7,8 @@ kyumina くんはSNSの宣伝をするなら、使っているユーザ数を宣
 さあ、 kyumina くんの代わりに、 KosenProconTwitter に登録しているユーザの総数を取得してあげましょう。
 登録されているユーザ情報はすべて、 users テーブルに、もれなく重複がないように格納されています。
 
-kyumina 「 count っていう集約関数をつかうと行数を SELECT できるゾ 」',
+kyumina 「 count っていう集約関数をつかうと行数を取得できるゾ 」',
     'name' => 'Kyumina くんとユーザ数',
-    'point' => 100,
+    'point' => 75,
     'answer_query' => 'count(*) from users;',
 ];
