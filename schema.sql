@@ -23,5 +23,6 @@ CREATE TABLE if NOT EXISTS problems (
   name text NOT NULL UNIQUE ,
   point integer NOT NULL ,
   answer_query text NOT NULL,
-  text text not NULL
+  text text not NULL,
+  sample  text not null
 );

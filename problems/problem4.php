@@ -7,9 +7,11 @@ return [
 あなたは ツイート数の多い順に20人分のツイート数を表示してください。 
 ツイートが誰のものか調べるには、 tweets テーブルの user_id カラムを参照してください。
 この値は、 users テーブルの id カラムの値を参照しています。
+サンプルでは、最初の 10 行を省いて表示しています。
 
 kyumina「これはなかなか難しい……。group by 句 は必須だぞい！」',
     'name' => 'Kyumina くんとツイ廃',
     'point' => 250,
     'answer_query' => 'count(id) from tweets group by user_id order by count(id) desc limit 20;',
+    'sample' => 'count(id) from tweets group by user_id order by count(id) desc limit 20 offset 10;',
 ];

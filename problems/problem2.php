@@ -11,4 +11,5 @@ kyumina 「 count っていう集約関数をつかうと行数を取得でき�
     'name' => 'Kyumina くんとユーザ数',
     'point' => 75,
     'answer_query' => 'count(*) from users;',
+    'sample' => "'there is no sample';"
 ];

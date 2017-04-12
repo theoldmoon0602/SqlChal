@@ -8,10 +8,12 @@ kyumina くんは大変な事に気が付きました。 KosenProconTwitter に�
 依頼の内容は、ユーザ id が　1 の人にフォローされているユーザのツイートを、時刻に降順に並べて取得することです。 
 follow_relations テーブルの follower_id が 1 のデータから、 ユーザid が 1のユーザにフォローされているユーザを取得して、
 tweets テーブルの user_id と結びつけることで、タイムラインを作成してください。
+サンプルでは、ユーザidが2の人について、これを実行しています。
 
 kyumina 「SNSを作るなら必須のクエリじゃん :pingu-hi:」
 ',
     'name' => 'Kyumina くんとタイムライン',
     'point' => 250,
     'answer_query' => 'select text from tweets where user_id in (select followee_id from follow_relations where follower_id=1) order by created_at;',
+    'sample' => 'select text from tweets where user_id in (select followee_id from follow_relations where follower_id=2) order by created_at;',
 ];

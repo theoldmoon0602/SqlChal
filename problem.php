@@ -33,7 +33,7 @@ catch (Exception $e) {
 <h3>Sample</h3>
 <table class="sample">
     <?php
-    $result = execute_query($problem->answer_query);
+    $result = execute_query($problem->sample);
     echo (format_to_table($result['rows'], 10));
     ?>
 </table>

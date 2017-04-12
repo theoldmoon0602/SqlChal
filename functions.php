@@ -91,6 +91,7 @@ class Problem {
     public $name;
     public $point;
     public $answer_query;
+    public $sample;
 }
 
 /**
@@ -236,6 +237,10 @@ function format_to_table($rows, $limit = -1) {
 function target_db() {
     $pdo = new PDO("pgsql: dbname=sqlchal host=localhost", "challenger", "challenger");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->beginTransaction();
+    $stmt = $pdo->query('set local statement_timeout=5000');
+    $stmt->closeCursor();
+
     return $pdo;
 }
 /**
@@ -248,6 +253,7 @@ function execute_query($query) {
     $t1 = time();
     $rows = $pdo->query("SELECT " . $query);
     $t2 = time();
+    $pdo->commit();
 
     return [
         'rows' => $rows,

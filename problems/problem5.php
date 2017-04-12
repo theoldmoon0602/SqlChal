@@ -8,9 +8,11 @@ return [
 あなたの任務は、 kyumina くんにかわって、被フォロー数の最も多いユーザ50人の screen_name をフォロー数の少ない順に取得することです。
 ユーザのフォロー関係を表す follow_relations テーブルを有効に活用しましょう。 followee_id はフォローされているユーザの idを表し、 
 follower_id はそのユーザをフォローしているユーザのidを表しています。
+サンプルでは、最初の 10 行を省いて表示しています。
 
 あなた「group by 句とサブクエリ、 inner join をうまく使えば……できる気がする……」',
     'name' => 'Kyumina くんと人気者',
     'point' => 350,
-    'answer_query' => 'cnt, screen_name from users inner join (select count(*) as cnt, followee_id from follow_relations group by followee_id order by count(*) desc limit 50) as hoge on hoge.followee_id = users.id order by cnt;',
+    'answer_query' => 'screen_name from users inner join (select count(*) as cnt, followee_id from follow_relations group by followee_id order by count(*) desc limit 50) as hoge on hoge.followee_id = users.id order by cnt;',
+    'sample' => 'screen_name from users inner join (select count(*) as cnt, followee_id from follow_relations group by followee_id order by count(*) desc limit 50) as hoge on hoge.followee_id = users.id order by cnt limit 10 offset 10;',
 ];
