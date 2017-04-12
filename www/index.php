@@ -27,7 +27,7 @@ else if (isset($_POST['register']) && isset($_POST['username']) && isset($_POST[
 $content = '../main.php';
 if (isset($_SESSION['id'])) {
 	if (isset($_GET['problem']) &&
-        0 <= $_POST['problem'] && $_POST['problem'] < getProblemCount() &&
+        0 <= $_GET['problem'] && $_GET['problem'] < getProblemCount() &&
         checktime()) {
 	    $id = $_GET['problem'];
 		$content = '../problem.php';

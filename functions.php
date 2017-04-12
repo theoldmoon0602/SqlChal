@@ -299,8 +299,6 @@ function load_answer_query($id) {
 
 function insertSubmission($user_id, $problem_id, $query, $accepted, $execution_time) {
     $pdo = db();
-    $stmt = $pdo->prepare("insert into submissions(user_id, problem_id, query, accepted, execution_time, created_at) values (?,?,?,?,?,?)");
-    $stmt->execute([$user_id, $problem_id, $query, $accepted, $execution_time, time()]);
 
     if ($accepted =='AC' && !isUserSolved($user_id, $problem_id)) {
         $stmt = $pdo->prepare("update users set ".
@@ -314,4 +312,7 @@ function insertSubmission($user_id, $problem_id, $query, $accepted, $execution_t
             'time'=>time(),
         ]);
     }
+
+    $stmt = $pdo->prepare("insert into submissions(user_id, problem_id, query, accepted, execution_time, created_at) values (?,?,?,?,?,?)");
+    $stmt->execute([$user_id, $problem_id, $query, $accepted, $execution_time, time()]);
 }

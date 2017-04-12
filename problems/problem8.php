@@ -9,5 +9,5 @@ return [
 ',
     'name' => 'Kyumina くんとなかよしMAP2',
     'point' => 300,
-    'answer_query' => '',
+    'answer_query' => ' id from users inner join (select followee_id from follow_relations where follower_id=55) as friends on users.id=followee_id order by users.id;',
 ];
