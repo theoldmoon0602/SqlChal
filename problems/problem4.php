@@ -1,17 +1,11 @@
 <?php
 
 return [
-    'text' => '
-前回のクエリの実行に時間がかかったことに驚いた kyumina くんは、いわゆるツイ廃と呼ばれる人種のツイート数がどの程度になるのか見積もりたいと考えました。
-そこで、ツイート数が多い人から順に20人のツイート数を表示することにしました。しかし、大変難しく、まったく歯が立ちませんでした。
-あなたは ツイート数の多い順に20人分のツイート数を表示してください。 
-ツイートが誰のものか調べるには、 tweets テーブルの user_id カラムを参照してください。
-この値は、 users テーブルの id カラムの値を参照しています。
-サンプルでは、最初の 10 行を省いて表示しています。
-
-kyumina「これはなかなか難しい……。group by 句 は必須だぞい！」',
-    'name' => 'Kyumina くんとツイ廃',
-    'point' => 250,
-    'answer_query' => 'count(id) from tweets group by user_id order by count(id) desc limit 20;',
-    'sample' => 'count(id) from tweets group by user_id order by count(id) desc limit 20 offset 10;',
+    'story' => '試しにすべてのツイートの情報を取得しようと <code>select content from tweets;</code> を実行したあなたは、そのデータ量にとても驚かされることになりました。これではとてもすべてを見ることはできません。
+そこであなたは <code>limit</code> 句のことを思い出しました。これは<code>select</code>文で表示するデータの件数を制限するために用いられます。',
+    'text' => '<code>tweets</code> テーブルから、<code>content</code> カラムの値を取得してください。ただし、表示件数は 50 件で、 <code>id</code> の値によって昇順にソートしてください。',
+    'name' => '多すぎるツイート',
+    'point' => 70,
+    'answer_query' => 'content from tweets order by id limit 50',
+    'sample' => 'content from tweets order by id limit 50',
 ];

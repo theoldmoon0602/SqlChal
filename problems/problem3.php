@@ -1,17 +1,11 @@
 <?php
 
 return [
-    'text' => '
-KosenProkonTwitter には十分にひとが集まりそうな気配がしてきました。そこで、 kyumina くんはツイートのテストをやることにしました。
-なんと、一発でうまくいきました！　すばらしい。ということは、次は、ツイートを取得する仕事が降り掛かってくるに違いありません。
-あなたの予想通り、 kyumina くんはあなたに「すべてのツイートを時系列に沿って取得してほしい」と頼んできました。
-さあ、もうできあがっているそのクエリを kyumina くんに見せてやってください。
-ツイートのデータは tweets テーブルにあり、その内容は text というカラムで保存されています。ツイートした時刻は created_at カラムから取得することができます。
-サンプルでは、最初の10ツイートを省いて表示しています。
-
-あなた「自明」',
-    'name' => 'Kyumina くんとツイート',
-    'point' => 100,
-    'answer_query' => 'text from tweets order by created_at;',
-    'sample' => 'text from tweets order by created_at limit 10 offset 10;',
+    'story' => 'ユーザidを連番で与えていると、bot からのランダムなリクエストを受け付けてしまうと風のうわさで聞いたあなたは、 マストドンでは果たしてユーザidは連番なのかが気になりました。
+そこで、ユーザidを登録時の時系列順に表示することでこれを確かめることにしました。データをあるカラムの値によって整列するには <code>order by</code> 句を使うとも聞いたので、良い練習になるでしょう。',
+    'text' => '<code>users</code>テーブルから、 <code>id</code> を取得してください。ただし、データは <code>created_at</code> カラムの値に昇順にソートしてください。',
+    'name' => 'ユーザidのヒミツ',
+    'point' => 50,
+    'answer_query' => 'id from users order by created_at',
+    'sample' => "'there is no sample' as no_sample",
 ];

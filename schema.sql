@@ -7,6 +7,7 @@ create table if not exists users (
   last_submission_time integer
 );
 
+
 CREATE TABLE IF NOT EXISTS submissions (
   id integer PRIMARY KEY AUTOINCREMENT ,
   user_id integer not null,
@@ -24,5 +25,7 @@ CREATE TABLE if NOT EXISTS problems (
   point integer NOT NULL ,
   answer_query text NOT NULL,
   text text not NULL,
-  sample  text not null
+  sample  text not null,
+  story  text not null
+
 );

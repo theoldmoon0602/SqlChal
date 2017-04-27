@@ -1,17 +1,12 @@
 <?php
 
 return [
-    'text' => '
-ある日、 kyumina くんの元に一通の封書が届きました。そこには「KosenProconTwitter でもなかよしMAPしたいです」 と書いてありました。
-なかよしMAPとは、ユーザのフォロー関係をグラフで表したものです。 ユーザの声に応えるため、 kyumina くんはなかよしMAPの実装をすることにしました。
-しかし、最初からすべてを実装するのは大変なので、とりあえずあるユーザの友達の一覧を取得することにしました。友達とは、フォローしているかつ、フォローされている関係のことを言います。
-あなたの仕事は、 ユーザ id が 24 のユーザがフォローしていて、かつ、 ユーザ id 24 のユーザをフォローしているようなユーザの ユーザ id を昇順で列挙することです。
-サンプルでは、ユーザidが14のユーザに関してのデータを表示しています。
-
-ふるつき 「ぼくの解法だと、 in 句とサブクエリを使ったんだよなぁ」
-',
-    'name' => 'Kyumina くんとなかよしMAP',
-    'point' => 300,
-    'answer_query' => ' follower_id from follow_relations where followee_id = 24 and follower_id in (select followee_id from follow_relations where follower_id = 24) order by follower_id;',
-    'sample' => ' follower_id from follow_relations where followee_id = 24 and follower_id in (select followee_id from follow_relations where follower_id = 14) order by follower_id;',
+'story' => 'あなたと kyumina くんは協議の結果、KosenProconTwitter にはデフォルトでなかよしMAPを組み込むことにしました。なかよしMAPとは、ユーザのフォロー関係をグラフにあらわしたものです。
+グラフを描画する部分は kyumina くんにお任せして、あなたは必要なデータを取得するクエリを書くことにしました。それは、あるユーザについて、そのユーザがフォローしているかつ、そのユーザをフォローしているようなユーザを列挙することです。
+サンプルでは、ユーザidが1024のユーザに対してこれを行っています。',
+'text' => 'ユーザidが38のユーザについて、そのユーザがフォローしていて（<code>followings.from_id=38</code>）、そのユーザにフォローされている（<code>followings.to_id=38</code>）ようなユーザのユーザidを昇順に列挙してください。',
+'name' => 'おともだち',
+'point' => 100,
+'answer_query' => 'from_id from followings where to_id=38 and from_id in (select to_id from followings where from_id=38) order by from_id;',
+'sample' => 'from_id from followings where to_id=1024 and from_id in (select to_id from followings where from_id=1024) order by from_id;',
 ];

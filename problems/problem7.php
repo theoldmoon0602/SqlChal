@@ -1,18 +1,14 @@
 <?php
 
 return [
-    'text' => '
-KosenProconTwitter が大盛況になったときのことを考えた kyumina くんはヘビーユーザにお礼をできるようにしようと思いました。
-ヘビーユーザーとは、もっともたくさんツイートをしたユーザ、もっともいいねされたユーザ、もっともフォロワーの多いユーザの三種類のユーザです。
-あなたの仕事は、 この三種類のユーザについてそれぞれ 5人ずつ、そのid を特定することです。
-ユーザ id は昇順にソートしてください。ツイートに対するいいねは、 favorites テーブルから取得できます。
+    'story' => 'KosenProconTwitter が大盛況になったときのことを考えた kyumina くんとあなたはヘビーユーザにお礼をできるようにしようと思いました。
+ヘビーユーザーとは、もっともたくさんツイートをしたユーザと、もっともフォロワーの多いユーザです。
+そこで、もっともたくさんツイートした5人のユーザと、もっともたくさんフォローされている5人のユーザのユーザidを取得することにしました。
 サンプルでは、それぞれについて 1人ずつのidを取得しています。
-
-kyumina 「union select はCTFでも大活躍って師匠が言ってました ^ω^」
-あなた「union するときは order by の使い方に注意しないといけないな」
 ',
-    'name' => 'Kyumina くんとヘビーユーザ',
+    'text' => 'もっともツイート数の多いユーザ5人のユーザidと、もっとも被フォロー数の多いユーザ5人のユーザidを昇順に取得してください。ただし、重複は排除してください',
+    'name' => 'ヘビーユーザ',
     'point' => 250,
-    'answer_query' => '* from (select user_id from tweets group by user_id order by count(*) desc limit 5 )as hoge union select user_id from tweets where id=(select favoree_tweet_id from favorites group by favoree_tweet_id order by count(*) desc limit 5) union select * from (select followee_id from follow_relations group by followee_id order by count(*) desc limit 5) as piyo order by 1;',
-    'sample' => '* from (select user_id from tweets group by user_id order by count(*) desc limit 1 )as hoge union select user_id from tweets where id=(select favoree_tweet_id from favorites group by favoree_tweet_id order by count(*) desc limit 1) union select * from (select followee_id from follow_relations group by followee_id order by count(*) desc limit 1) as piyo order by 1;',
+    'answer_query' => '* from (select user_id from tweets group by user_id order by count(*) desc limit 5 )as hoge  union select * from (select to_id from followings group by to_id order by count(*) desc limit 5) as piyo order by 1;',
+    'sample' => '* from (select user_id from tweets group by user_id order by count(*) desc limit 1 )as hoge  union select * from (select to_id from followings group by to_id order by count(*) desc limit 1) as piyo order by 1;',
 ];
