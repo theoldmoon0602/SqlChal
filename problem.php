@@ -117,13 +117,16 @@ try {
 
                     audioBuffer.then(buffer => {
                        var bufsrc = audioContext.createBufferSource();
+                       bufsrc.onended = () => {
+                        alert("Congrats! You 'AC'ed this problem!");
+                        location.href=".";
+                        };
                        bufsrc.buffer = buffer;
                        bufsrc.connect(audioContext.destination);
                        bufsrc.start(0);
                     });
 
-                    alert("Congrats! You 'AC'ed this problem!");
-                    location.href=".";
+
                 }
                 else {
                     $("#accepted").removeClass('ac').addClass('wa').text('WA').fadeIn();

@@ -1,5 +1,3 @@
 submits/
-www/problems/*
-*.db
 nohup.out
 .idea/
