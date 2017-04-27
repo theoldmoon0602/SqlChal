@@ -75,10 +75,10 @@ try {
         var audioBuffer = fetch('gomen.mp3')
                 .then(response => response.arrayBuffer())
                 .then(buffer => {
-                    return new Promise(resolve, reject) => {
+                    return (new Promise((resolve, reject) => {
                         audioContext = new AudioContext();
                         audioContext.decodeAudioData(buffer, resolve, reject);
-                    }
+                    });
                 });
 
 
