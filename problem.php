@@ -71,6 +71,17 @@ try {
 
 <script>
     $(function () {
+        var audioContext;
+        var audioBuffer = fetch('gomen.mp3')
+                .then(response => response.arrayBuffer())
+                .then(buffer => {
+                    return new Promise(resolve, reject) => {
+                        audioContext = new AudioContext();
+                        audioContext.decodeAudioData(buffer, resolve, reject);
+                    }
+                });
+
+
         $("#loader").hide();
         $("#submit").click(function () {
             var query = $("#query").val();
@@ -103,8 +114,16 @@ try {
 
                 if (accepted) {
                     $("#accepted").removeClass('wa').addClass('ac').text('AC').fadeIn();
+
+                    audioBuffer.then(buffer => {
+                       var bufsrc = audioContext.createBufferSource();
+                       bufsrc.buffer = buffer;
+                       bufsrc.connect(audioContext.destination);
+                       bufsrc.start(0);
+                    });
+
                     alert("Congrats! You 'AC'ed this problem!");
-                    location.href="/";
+                    location.href=".";
                 }
                 else {
                     $("#accepted").removeClass('ac').addClass('wa').text('WA').fadeIn();
