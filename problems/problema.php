@@ -8,5 +8,5 @@ return [
     'name' => 'Kyumina くんとリプライチェーン',
     'point' => 400,
     'answer_query' => 'content from tweets inner join (with recursive hoge(id) as ( select id from tweets where in_reply_to=1020432 union all select tweets.id from tweets inner join hoge on in_reply_to=hoge.id) select id from hoge) as piyo on tweets.id=piyo.id  order by tweets.created_at ;',
-    'sample' => 'content from tweets inner join (with recursive hoge(id) as ( select id from tweets where in_reply_to=1020432 union all select tweets.id from tweets inner join hoge on in_reply_to=hoge.id) select id from hoge) as piyo on tweets.id=piyo.id  order by tweets.created_at ;',
+    'sample' => 'content from tweets inner join (with recursive hoge(id) as ( select id from tweets where in_reply_to=1020432 union all select tweets.id from tweets inner join hoge on in_reply_to=hoge.id) select id from hoge) as piyo on tweets.id=piyo.id  order by tweets.created_at limit 10;',
 ];
