@@ -9,6 +9,6 @@ return [
     'text' => 'ユーザidが20の人のタイムライン（そのユーザにフォローされているユーザのツイートを時刻（ <code>created_at</code> ）に昇順に並べたもの）を表示してください。',
     'name' => 'kyumina くんとタイムライン',
     'point' => 250,
-    'answer_query' => 'select content from tweets where user_id in (select to_id from followings where from_id=20) order by created_at;',
-    'sample' => 'select content from tweets where user_id in (select to_id from followings where from_id=2) order by created_at;',
+    'answer_query' => ' content from tweets where user_id in (select to_id from followings where from_id=20) order by created_at;',
+    'sample' => ' content from tweets where user_id in (select to_id from followings where from_id=2) order by created_at;',
 ];
