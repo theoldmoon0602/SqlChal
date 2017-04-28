@@ -38,6 +38,8 @@ while (1) {
         $content = '../problem.php';
     } else if (isset($_GET['scoreboard'])) {
         $content = '../scoreboard.php';
+    } else if (isset($_GET['schema'])) {
+        $content = '../schema.php';
     } else if (isset($_GET['user'])) {
         if (!isset($_SESSION["id"])) {
             $errors[] = "Please Login";
@@ -78,6 +80,7 @@ while (1) {
             <ul>
                 <li class="link-button"><a href="./">TOP</a></li>
                 <li class="link-button"><a href="./#problems">Problems</a></li>
+                <li class="link-button"><a href="?schema">Schema</a></li>
                 <li class="link-button"><a href="?scoreboard">Scoreboard</a></li>
                 <?php if (isset($_SESSION['id'])) { ?>
                     <li class="link-button"><a
