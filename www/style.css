@@ -39,7 +39,7 @@ ul {
 }
 
 code {
-    font-family: InConsolata, Courier New, Courier, monospace;
+    font-family: InConsolata, Courier New, Courier, monospace, inherit;
     border: 1px solid var(--theme);
     border-radius: 2px;
     padding: 0 0.2em;
