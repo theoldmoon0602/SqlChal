@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'story' => 'ユーザのレコメンド機能の実装を考えていた kyumina くんが、あなたに「あるユーザについて、そのユーザがフォローしているユーザがフォローしている」ようなユーザを取得したいとお願いしてきました。
-これはさほど難しいタスクではないだろうと考えたあなたは、さっそくこの仕事にとりかかりました。
-ユーザのフォロー関係は <code>followings</code> テーブルに保存されており、 <code>from_id</code> の idを持つユーザが、 <code>to_id</code> のidを持つユーザをフォローしています。',
-    'text' => 'ユーザidが4070のユーザにフォローされているユーザがフォローしているユーザのユーザidを昇順で、重複がないように取得してください。',
-    'name' => 'user recommendation',
-    'point' => 250,
-    'answer_query' => 'to_id from followings where from_id in (select to_id from followings where from_id=4070) order by to_id;',
-    'sample' => 'to_id from followings where from_id in (select to_id from followings where from_id=4070) order by to_id;',
+    'story' => 'さて、ウォーミングアップはおしまいです。これからは頭を捻らないと解けない問題が始まります。
+
+あなたは、 kyumina くんからの頼みを受けて、たくさんツイートをする人はどれくらいの数をツイートするのか調べることになりました。試しに、上から20人程度のツイート数を取得してみることにしましょう。
+この問題は難しいので、少しだけヒントをかいておきます。
+<code>select count(*) from tweets group by user_id</code>',
+    'text' => 'ツイート数をユーザid <code>tweets.user_id</code> ごとに集計し、その数が多い順に20件までをソートして表示してください。',
+    'point' => 120,
+    'name' => 'ツイートカウント',
+    'answer_query' => 'count(*) from tweets group by user_id order by count(*) desc limit 20',
+    'sample' =>  'count(*) from tweets group by user_id order by count(*) desc limit 20'
 ];

@@ -1,13 +1,10 @@
 <?php
-
 return [
-    'story' => 'kyumina くんは大変な事に気が付きました。 KosenProconTwitter にはまだ、タイムラインの機能が存在しないのです。
-タイムラインとは、あるユーザがフォローしている人のツイートが、時系列順に並んだものです。Twitterを名乗るからには必須の機能でした。
-これは致命的なミスです。 kyumina くんは急いで実装を始めることにしました。そこで、あなたに、タイムラインを取得するようなクエリを作るように依頼してきました。
-依頼の内容は、ユーザ id が 51066 の人にフォローされているユーザのツイートを、時刻に降順に並べて取得することです。',
-    'text' => 'ユーザid <code>users.id</code>が51066であるユーザのタイムライン（そのユーザにフォローされているユーザのツイート内容（<code>tweets.content</code>）を時刻（ <code>tweeets.created_at</code> ）に昇順に並べたもの）を表示してください。',
-    'name' => 'kyumina くんとタイムライン',
-    'point' => 250,
-    'answer_query' => ' content from tweets where user_id in (select to_id from followings where from_id=51066) order by created_at;',
-    'sample' => ' content from tweets where user_id in (select to_id from followings where from_id=51066) order by created_at;',
+    'story' => 'さて、KosenProconTwitterに向けられる当然の需要として、ユーザ名とツイートを同時に表示したい、というものがあります。これは基礎のクエリですが、複数のテーブルを結合しなければ実現できないため、簡単な問題ではありません。
+inner join 句をうまく使って、これを実現してみましょう。',
+    'text' => 'ツイートの内容<code>tweets.content</code>とその発言者のユーザ名<code>users.username</code> を、ツイートのid <code>tweets.id</code> について昇順に100件表示してください。',
+    'point' => 120,
+    'name' => '基本のキ',
+    'answer_query' => 'username, content from tweets inner join users on users.id = tweets.user_id order by tweets.id asc limit 100',
+    'sample' => 'username, content from tweets inner join users on users.id = tweets.user_id order by tweets.id asc limit 100'
 ];

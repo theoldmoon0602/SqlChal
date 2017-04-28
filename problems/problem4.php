@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'story' => '試しにすべてのツイートの情報を取得しようと <code>select content from tweets;</code> を実行したあなたは、そのデータ量にとても驚かされることになりました。これではとてもすべてを見ることはできません。
-そこであなたは <code>limit</code> 句のことを思い出しました。これは<code>select</code>文で表示するデータの件数を制限するために用いられます。',
-    'text' => '<code>tweets</code> テーブルから、<code>content</code> カラムの値を取得してください。ただし、表示件数は 50 件で、 <code>id</code> の値によって昇順にソートしてください。',
-    'name' => '多すぎるツイート',
-    'point' => 70,
-    'answer_query' => 'content from tweets order by id limit 50',
-    'sample' => 'content from tweets order by id limit 50',
+    'story' => 'マストドンは歴史の浅いSNSですが、既に古参ユーザの存在が現れつつあります（要出典）。
+そこで、あなたは古参ユーザの情報を取得してみることにしました。',
+    'text' => 'ユーザid <code>users.id</code> が 150 より若い ユーザの名前 <code>users.display_name</code> を表示してください。データは、 ユーザid <code>users.id</code> に昇順にソートしてください。',
+    'name' => '古参ユーザ',
+    'point' => 75,
+    'answer_query' => 'display_name from users where id < 150 order by id',
+    'sample' => 'display_name from users where id < 150 order by id',
 ];
