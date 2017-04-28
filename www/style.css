@@ -167,7 +167,7 @@ main {
 }
 
 .first-prize {
-    background-color: rgb(243, 154, 222);
+    background: linear-gradient(#8d8f05, yellow, #8d8f05);
 }
 
 /* -- */
